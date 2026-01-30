@@ -1,0 +1,85 @@
+### Auth Endpoints Testing
+
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+### Health Check
+GET {{baseUrl}}/health
+
+###
+### Sign Up - Create a new user
+POST {{baseUrl}}/api/auth/sign-up
+Content-Type: {{contentType}}
+
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+
+###
+### Sign Up - Invalid email format
+POST {{baseUrl}}/api/auth/sign-up
+Content-Type: {{contentType}}
+
+{
+  "email": "invalid-email",
+  "password": "securePassword123"
+}
+
+###
+### Sign Up - Password too short (less than 8 characters)
+POST {{baseUrl}}/api/auth/sign-up
+Content-Type: {{contentType}}
+
+{
+  "email": "test@example.com",
+  "password": "short"
+}
+
+###
+### Login - Valid credentials
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+
+###
+### Login - Non-existent user
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "nonexistent@example.com",
+  "password": "securePassword123"
+}
+
+###
+### Login - Wrong password
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "user@example.com",
+  "password": "wrongPassword"
+}
+
+###
+### Refresh Token - Get new access token
+POST {{baseUrl}}/api/auth/refresh-token
+Content-Type: {{contentType}}
+
+{
+  "refreshToken": "your_refresh_token_here"
+}
+
+###
+### Refresh Token - Invalid refresh token
+POST {{baseUrl}}/api/auth/refresh-token
+Content-Type: {{contentType}}
+
+{
+  "refreshToken": "invalid_token"
+}
