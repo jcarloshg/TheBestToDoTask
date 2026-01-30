@@ -10,16 +10,18 @@ export interface IENVIROMENT_VARIABLES {
   // JWT Secrets
   ACCESS_TOKEN_SECRET: string;
   REFRESH_TOKEN_SECRET: string;
+  ACCESS_TOKEN_EXPIRY: string;
+  REFRESH_TOKEN_EXPIRY: string;
 }
 
 const EnviromentVariables = (): IENVIROMENT_VARIABLES => {
   return {
     PORT: process.env.PORT ?? "3000",
-    ACCESS_TOKEN_SECRET:
-      process.env.ACCESS_TOKEN_SECRET ?? "dev-access-secret-key",
-    REFRESH_TOKEN_SECRET:
-      process.env.REFRESH_TOKEN_SECRET ?? "dev-refresh-secret-key",
     NODE_ENV: process.env.NODE_ENV ?? "development",
+    ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET ?? "dev-access-secret-key",
+    REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET ?? "dev-refresh-secret-key",
+    ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY ?? "24h",
+    REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY ?? "7d",
   };
 };
 

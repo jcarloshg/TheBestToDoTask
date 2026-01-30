@@ -7,7 +7,7 @@ import { SignUpController } from "./presentation/controllers/SignUpController.js
 import { LoginController } from "./presentation/controllers/LoginController.js";
 import { RefreshTokenController } from "./presentation/controllers/RefreshTokenController.js";
 import { createAuthRoutes } from "./presentation/routes/authRoutes.js";
-import { JwtTokenService } from "./application/shared/infrastructure/JwtTokenService.js";
+import { JwtTokenServiceSingleton } from "./application/shared/infrastructure/JwtTokenService.js";
 import { Argon2CryptoService } from "./application/shared/infrastructure/Argon2CryptoService.js";
 import { InMemoryUserRepository } from "./application/shared/infrastructure/InMemoryUserRepository.js";
 import { InMemoryRefreshTokenRepository } from "./application/shared/infrastructure/InMemoryRefreshTokenRepository.js";
@@ -17,11 +17,11 @@ import { ENVIROMENT_VARIABLES } from "./application/shared/infrastructure/Enviro
 const userRepository = new InMemoryUserRepository();
 const refreshTokenRepository = new InMemoryRefreshTokenRepository();
 const cryptoService = new Argon2CryptoService();
-const tokenService = new JwtTokenService(
+const tokenService = JwtTokenServiceSingleton.getInstance(
   ENVIROMENT_VARIABLES.ACCESS_TOKEN_SECRET,
   ENVIROMENT_VARIABLES.REFRESH_TOKEN_SECRET,
-  "15m",
-  "7d",
+  ENVIROMENT_VARIABLES.ACCESS_TOKEN_EXPIRY ?? "24h",
+  ENVIROMENT_VARIABLES.REFRESH_TOKEN_EXPIRY ?? "7d",
 );
 
 // Initialize use cases with dependency injection
