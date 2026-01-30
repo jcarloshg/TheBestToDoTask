@@ -1,11 +1,13 @@
 import "dotenv/config";
 
+export type NODE_ENV_VALUE = "development" | "production" | "test";
+
 export interface IENVIROMENT_VARIABLES {
   // Server Configuration
   PORT: string;
 
   // Node Environment
-  NODE_ENV: string;
+  NODE_ENV: NODE_ENV_VALUE;
 
   // JWT Secrets
   ACCESS_TOKEN_SECRET: string;
@@ -26,7 +28,7 @@ const EnviromentVariables = (): IENVIROMENT_VARIABLES => {
     // Server Configuration
     PORT: process.env.PORT ?? "3000",
     // Node Environment
-    NODE_ENV: process.env.NODE_ENV ?? "development",
+    NODE_ENV: (process.env.NODE_ENV ?? "development") as NODE_ENV_VALUE,
     // JWT Secrets
     ACCESS_TOKEN_SECRET:
       process.env.ACCESS_TOKEN_SECRET ?? "dev-access-secret-key",

@@ -39,7 +39,7 @@ const refreshTokenUseCase = new RefreshTokenUseCase(
 );
 
 // Initialize controllers
-const signUpController = new SignUpController(signUpUseCase);
+// const signUpController = new SignUpController();
 const loginController = new LoginController(loginUseCase);
 const refreshTokenController = new RefreshTokenController(refreshTokenUseCase);
 
@@ -50,10 +50,8 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use(
-  "/api/auth",
-  createAuthRoutes(signUpController, loginController, refreshTokenController),
-);
+// app.use("/api/auth", createAuthRoutes(loginController, refreshTokenController));
+createAuthRoutes(app);
 
 // Health check
 app.get("/health", (_req, res) => {
