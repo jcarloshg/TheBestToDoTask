@@ -24,7 +24,7 @@ export function createAuthRoutes(
   router.post(
     "/sign-up",
     validateRequest(SignUpRequestSchema),
-    async (req, res) => await new SignUpController().handle(req, res),
+    async (req, res) => await SignUpController(req, res),
   );
 
   //   router.post("/login", validateRequest(LoginRequestSchema), (req, res) =>
