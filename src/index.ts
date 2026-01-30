@@ -1,17 +1,17 @@
 import "dotenv/config";
 import express from "express";
-import { SignUpUseCase } from "./application/auth/sign-up/application/SignUpUseCase.js";
-import { LoginUseCase } from "./application/auth/login/application/LoginUseCase.js";
-import { RefreshTokenUseCase } from "./application/auth/refresh-token/application/RefreshTokenUseCase.js";
-import { SignUpController } from "./presentation/controllers/SignUpController.js";
-import { LoginController } from "./presentation/controllers/LoginController.js";
-import { RefreshTokenController } from "./presentation/controllers/RefreshTokenController.js";
-import { createAuthRoutes } from "./presentation/routes/authRoutes.js";
-import { JwtTokenServiceSingleton } from "./application/shared/infrastructure/JwtTokenService.js";
-import { Argon2CryptoService } from "./application/shared/infrastructure/Argon2CryptoService.js";
-import { InMemoryUserRepository } from "./application/shared/infrastructure/InMemoryUserRepository.js";
-import { InMemoryRefreshTokenRepository } from "./application/shared/infrastructure/InMemoryRefreshTokenRepository.js";
-import { ENVIROMENT_VARIABLES } from "./application/shared/infrastructure/EnviromentVariables.js";
+import { SignUpUseCase } from "./application/auth/sign-up/application/SignUpUseCase";
+import { LoginUseCase } from "./application/auth/login/application/LoginUseCase";
+import { RefreshTokenUseCase } from "./application/auth/refresh-token/application/RefreshTokenUseCase";
+import { SignUpController } from "./presentation/controllers/SignUpController";
+import { LoginController } from "./presentation/controllers/LoginController";
+import { RefreshTokenController } from "./presentation/controllers/RefreshTokenController";
+import { createAuthRoutes } from "./presentation/routes/authRoutes";
+import { JwtTokenServiceSingleton } from "./application/shared/infrastructure/JwtTokenService";
+import { Argon2CryptoService } from "./application/shared/infrastructure/Argon2CryptoService";
+import { InMemoryUserRepository } from "./application/shared/infrastructure/InMemoryUserRepository";
+import { InMemoryRefreshTokenRepository } from "./application/shared/infrastructure/InMemoryRefreshTokenRepository";
+import { ENVIROMENT_VARIABLES } from "./application/shared/infrastructure/EnviromentVariables";
 
 // Initialize adapters (infrastructure layer)
 const userRepository = new InMemoryUserRepository();
@@ -20,8 +20,8 @@ const cryptoService = new Argon2CryptoService();
 const tokenService = JwtTokenServiceSingleton.getInstance(
   ENVIROMENT_VARIABLES.ACCESS_TOKEN_SECRET,
   ENVIROMENT_VARIABLES.REFRESH_TOKEN_SECRET,
-  ENVIROMENT_VARIABLES.ACCESS_TOKEN_EXPIRY ?? "24h",
-  ENVIROMENT_VARIABLES.REFRESH_TOKEN_EXPIRY ?? "7d",
+  ENVIROMENT_VARIABLES.ACCESS_TOKEN_EXPIRY,
+  ENVIROMENT_VARIABLES.REFRESH_TOKEN_EXPIRY,
 );
 
 // Initialize use cases with dependency injection

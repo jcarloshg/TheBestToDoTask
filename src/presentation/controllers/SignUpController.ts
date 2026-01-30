@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { SignUpUseCase } from '../../application/auth/sign-up/application/SignUpUseCase.js';
-import { SignUpRequest } from '../../application/auth/sign-up/models/SignUpDto.js';
+import { SignUpUseCase } from '../../application/auth/sign-up/application/SignUpUseCase';
+import { SignUpRequest } from '../../application/auth/sign-up/models/SignUpDto';
 
 export class SignUpController {
   constructor(private signUpUseCase: SignUpUseCase) {}

@@ -1,5 +1,5 @@
 import jwt, { SignOptions } from "jsonwebtoken";
-import { ITokenService, TokenPayload } from "../models/ITokenService.js";
+import { ITokenService, TokenPayload } from "../models/ITokenService";
 
 export class JwtTokenServiceSingleton implements ITokenService {
   private static instance: JwtTokenServiceSingleton | null = null;

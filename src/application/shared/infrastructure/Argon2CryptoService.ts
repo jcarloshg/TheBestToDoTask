@@ -1,5 +1,5 @@
 import { hash, verify } from 'argon2';
-import { ICryptoService } from '../models/ICryptoService.js';
+import { ICryptoService } from '../models/ICryptoService';
 
 export class Argon2CryptoService implements ICryptoService {
   async hash(password: string): Promise<string> {

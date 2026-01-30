@@ -1,4 +1,4 @@
-import { IRefreshTokenRepository, RefreshTokenEntity } from '../models/IRefreshTokenRepository.js';
+import { IRefreshTokenRepository, RefreshTokenEntity } from '../models/IRefreshTokenRepository';
 
 export class InMemoryRefreshTokenRepository implements IRefreshTokenRepository {
   private tokens: Map<string, RefreshTokenEntity> = new Map();

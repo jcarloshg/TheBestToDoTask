@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IUserRepository } from '../../../shared/models/IUserRepository.js';
-import { ITokenService } from '../../../shared/models/ITokenService.js';
-import { IRefreshTokenRepository, RefreshTokenEntity } from '../../../shared/models/IRefreshTokenRepository.js';
-import { RefreshTokenRequest, RefreshTokenResponse } from '../models/RefreshTokenDto.js';
+import { IUserRepository } from '../../../shared/models/IUserRepository';
+import { ITokenService } from '../../../shared/models/ITokenService';
+import { IRefreshTokenRepository, RefreshTokenEntity } from '../../../shared/models/IRefreshTokenRepository';
+import { RefreshTokenRequest, RefreshTokenResponse } from '../models/RefreshTokenDto';
 
 export class RefreshTokenUseCase {
   constructor(

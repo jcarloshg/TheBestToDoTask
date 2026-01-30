@@ -1,5 +1,5 @@
-import { IUserRepository } from '../models/IUserRepository.js';
-import { User } from '../models/User.js';
+import { IUserRepository } from '../models/IUserRepository';
+import { User } from '../models/User';
 
 export class InMemoryUserRepository implements IUserRepository {
   private users: Map<string, User> = new Map();

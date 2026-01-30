@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { LoginUseCase } from '../../application/auth/login/application/LoginUseCase.js';
-import { LoginRequest } from '../../application/auth/login/models/LoginDto.js';
+import { LoginUseCase } from '../../application/auth/login/application/LoginUseCase';
+import { LoginRequest } from '../../application/auth/login/models/LoginDto';
 
 export class LoginController {
   constructor(private loginUseCase: LoginUseCase) {}

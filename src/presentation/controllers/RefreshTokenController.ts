@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { RefreshTokenUseCase } from '../../application/auth/refresh-token/application/RefreshTokenUseCase.js';
-import { RefreshTokenRequest } from '../../application/auth/refresh-token/models/RefreshTokenDto.js';
+import { RefreshTokenUseCase } from '../../application/auth/refresh-token/application/RefreshTokenUseCase';
+import { RefreshTokenRequest } from '../../application/auth/refresh-token/models/RefreshTokenDto';
 
 export class RefreshTokenController {
   constructor(private refreshTokenUseCase: RefreshTokenUseCase) {}

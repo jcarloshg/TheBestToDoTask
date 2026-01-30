@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IUserRepository } from '../../../shared/models/IUserRepository.js';
-import { ICryptoService } from '../../../shared/models/ICryptoService.js';
-import { User } from '../../../shared/models/User.js';
-import { SignUpRequest, SignUpResponse } from '../models/SignUpDto.js';
+import { IUserRepository } from '../../../shared/models/IUserRepository';
+import { ICryptoService } from '../../../shared/models/ICryptoService';
+import { User } from '../../../shared/models/User';
+import { SignUpRequest, SignUpResponse } from '../models/SignUpDto';
 
 export class SignUpUseCase {
   constructor(

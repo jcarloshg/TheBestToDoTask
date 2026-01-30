@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IUserRepository } from '../../../shared/models/IUserRepository.js';
-import { ICryptoService } from '../../../shared/models/ICryptoService.js';
-import { ITokenService } from '../../../shared/models/ITokenService.js';
-import { IRefreshTokenRepository, RefreshTokenEntity } from '../../../shared/models/IRefreshTokenRepository.js';
-import { LoginRequest, LoginResponse } from '../models/LoginDto.js';
+import { IUserRepository } from '../../../shared/models/IUserRepository';
+import { ICryptoService } from '../../../shared/models/ICryptoService';
+import { ITokenService } from '../../../shared/models/ITokenService';
+import { IRefreshTokenRepository, RefreshTokenEntity } from '../../../shared/models/IRefreshTokenRepository';
+import { LoginRequest, LoginResponse } from '../models/LoginDto';
 
 export class LoginUseCase {
   constructor(
