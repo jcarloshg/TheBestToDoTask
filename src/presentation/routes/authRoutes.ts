@@ -6,19 +6,8 @@ import { validateRequest } from "../middlewares/ValidationMiddleware";
 import { SignUpRequestSchema } from "../../application/auth/sign-up/models/SignUpDto";
 import { LoginRequestSchema } from "../../application/auth/login/models/LoginDto";
 import { RefreshTokenRequestSchema } from "../../application/auth/refresh-token/models/RefreshTokenDto";
-import { SignUpUseCase } from "../../application/auth/sign-up/application/SignUpUseCase";
-import { GetUserRepositoryInstance } from "../../application/shared/models/IUserRepository";
-import {
-  Argon2CryptoService,
-  Argon2CryptoServiceImp,
-} from "../../application/shared/infrastructure/Argon2CryptoService";
 
-export function createAuthRoutes(
-  // signUpController: SignUpController,
-  // loginController: LoginController,
-  // refreshTokenController: RefreshTokenController,
-  app: Express,
-) {
+export function createAuthRoutes(app: Express) {
   const router = Router();
 
   router.post(
@@ -27,16 +16,17 @@ export function createAuthRoutes(
     async (req, res) => await SignUpController(req, res),
   );
 
-  //   router.post("/login", validateRequest(LoginRequestSchema), (req, res) =>
-  //     loginController.handle(req, res),
-  //   );
-  //
-  //   router.post(
-  //     "/refresh-token",
-  //     validateRequest(RefreshTokenRequestSchema),
-  //     (req, res) => refreshTokenController.handle(req, res),
-  //   );
+  router.post(
+    "/login",
+    validateRequest(LoginRequestSchema),
+    async (req, res) => await LoginController(req, res),
+  );
 
-  app.use("/api/messages", router);
-  // return router;
+  router.post(
+    "/refresh-token",
+    validateRequest(RefreshTokenRequestSchema),
+    async (req, res) => await RefreshTokenController(req, res),
+  );
+
+  app.use("/api/auth", router);
 }

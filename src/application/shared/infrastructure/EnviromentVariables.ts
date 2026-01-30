@@ -26,7 +26,7 @@ export interface IENVIROMENT_VARIABLES {
 const EnviromentVariables = (): IENVIROMENT_VARIABLES => {
   const envs: IENVIROMENT_VARIABLES = {
     // Server Configuration
-    PORT: process.env.PORT ?? "3000",
+    PORT: process.env.PORT ?? "3001",
     // Node Environment
     NODE_ENV: (process.env.NODE_ENV ?? "development") as NODE_ENV_VALUE,
     // JWT Secrets
