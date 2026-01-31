@@ -22,8 +22,8 @@ export interface IToDoRepository {
   // already exists
   create(toDo: ToDoToSave): Promise<ToDo>;
   update(id: string, toDo: Partial<ToDoToUpdate>): Promise<ToDo>;
-  // not implemented yet
   findById(id: string): Promise<ToDo | null>;
+  // not implemented yet
   findByUserId(userId: string): Promise<ToDo[]>;
   delete(id: string): Promise<void>;
   findByUserIdAndCompleted(userId: string, completed: boolean): Promise<ToDo[]>;
