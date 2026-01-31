@@ -3,7 +3,7 @@ import { IUserRepository } from "../../../shared/models/IUserRepository";
 export interface GetUserResponse {
   id: string;
   email: string;
-  nombre: string;
+  name: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,7 +21,7 @@ export class GetUserUseCase {
     return {
       id: user.id,
       email: user.email,
-      nombre: user.nombre,
+      name: user.name,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };

@@ -8,15 +8,20 @@ export class UserRespoPostgreSql implements IUserRepository {
       id: user.id,
       email: user.email,
       password: user.passwordHash,
-      nombre: "",
+      name: user.name,
     });
 
+    if (!createdUser || !createdUser.dataValues) {
+      throw new Error("Failed to create user");
+    }
+
     return {
-      id: createdUser.id,
-      email: createdUser.email,
-      passwordHash: createdUser.password,
-      createdAt: createdUser.createdAt,
-      updatedAt: createdUser.updatedAt,
+      id: createdUser.dataValues.id,
+      email: createdUser.dataValues.email,
+      name: createdUser.dataValues.name,
+      passwordHash: createdUser.dataValues.password,
+      createdAt: createdUser.dataValues.createdAt!,
+      updatedAt: createdUser.dataValues.updatedAt!,
     };
   }
 
@@ -24,11 +29,14 @@ export class UserRespoPostgreSql implements IUserRepository {
 
     const userFound = await UserModel.findOne({ where: { email } });
 
-    if (!userFound) return null;
+    console.log(`userFound: `, userFound);
+
+    if (!userFound || !userFound.dataValues) return null;
 
     return {
       id: userFound.dataValues.id,
       email: userFound.dataValues.email,
+      name: userFound.dataValues.name,
       passwordHash: userFound.dataValues.password,
       createdAt: userFound.dataValues.createdAt!,
       updatedAt: userFound.dataValues.updatedAt!,
@@ -43,6 +51,7 @@ export class UserRespoPostgreSql implements IUserRepository {
     return {
       id: user.dataValues.id,
       email: user.dataValues.email,
+      name: user.dataValues.name,
       passwordHash: user.dataValues.password,
       createdAt: user.dataValues.createdAt!,
       updatedAt: user.dataValues.updatedAt!,
@@ -53,6 +62,7 @@ export class UserRespoPostgreSql implements IUserRepository {
     await UserModel.update(
       {
         email: user.email,
+        name: user.name,
         password: user.passwordHash,
       },
       {
@@ -69,6 +79,7 @@ export class UserRespoPostgreSql implements IUserRepository {
     return {
       id: updatedUser.id,
       email: updatedUser.email,
+      name: updatedUser.name,
       passwordHash: updatedUser.password,
       createdAt: updatedUser.createdAt,
       updatedAt: updatedUser.updatedAt,

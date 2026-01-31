@@ -12,7 +12,10 @@ export class SignUpUseCase {
 
   async execute(request: SignUpRequest): Promise<SignUpResponse> {
     // Check if user already exists
+    console.log("\n");
+    console.log(`request: `, request);
     const existingUser = await this.userRepository.findByEmail(request.email);
+    console.log(`existingUser: `, existingUser);
 
     if (existingUser) {
       throw new Error('User with this email already exists');
@@ -25,16 +28,21 @@ export class SignUpUseCase {
     const newUser: User = {
       id: uuidv4(),
       email: request.email,
+      name: request.name,
       passwordHash,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
 
+    console.log(`newUser: `, newUser);
     const createdUser = await this.userRepository.create(newUser);
+
+    console.log(`createdUser: `, createdUser);
 
     return {
       id: createdUser.id,
       email: createdUser.email,
+      // name: createdUser.name,
       createdAt: createdUser.createdAt,
     };
   }
