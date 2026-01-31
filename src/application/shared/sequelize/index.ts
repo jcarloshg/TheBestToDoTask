@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import { sequelizeConfig } from "./config";
+import { ENVIROMENT_VARIABLES } from "../infrastructure/EnviromentVariables";
 
 class SequelizeSingleton {
   private static instance: Sequelize | null = null;
@@ -8,7 +9,20 @@ class SequelizeSingleton {
 
   static getInstance(): Sequelize {
     if (!SequelizeSingleton.instance) {
-      SequelizeSingleton.instance = new Sequelize(sequelizeConfig);
+      // SequelizeSingleton.instance = new Sequelize(sequelizeConfig);
+      SequelizeSingleton.instance = new Sequelize({
+        dialect: "postgres",
+        host: ENVIROMENT_VARIABLES.POSTGRES_HOST,
+        port: parseInt(ENVIROMENT_VARIABLES.POSTGRES_PORT, 10),
+        username: ENVIROMENT_VARIABLES.POSTGRES_USER,
+        password: ENVIROMENT_VARIABLES.POSTGRES_PASSWORD,
+        database: ENVIROMENT_VARIABLES.POSTGRES_DB,
+        logging: ENVIROMENT_VARIABLES.NODE_ENV === "development" ? console.log : false,
+        define: {
+          timestamps: true,
+          underscored: true,
+        },
+      });
     }
     return SequelizeSingleton.instance;
   }

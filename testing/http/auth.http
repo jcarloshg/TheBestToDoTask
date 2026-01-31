@@ -95,3 +95,10 @@ Content-Type: {{contentType}}
 ### Only works if refreshToken cookie is NOT set (e.g., after clearing cookies or new session)
 POST {{baseUrl}}/v1/auth/refresh-token
 Content-Type: {{contentType}}
+
+###
+### Get User Profile (Me)
+### Requires: Authorization header with access token from login
+### Response: User personal information from database
+GET {{baseUrl}}/v1/auth/me
+Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
