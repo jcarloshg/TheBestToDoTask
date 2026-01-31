@@ -5,7 +5,6 @@ import { RefreshTokenController } from "../controllers/RefreshTokenController";
 import { validateRequest } from "../middlewares/ValidationMiddleware";
 import { SignUpRequestSchema } from "../../application/auth/sign-up/models/SignUpDto";
 import { LoginRequestSchema } from "../../application/auth/login/models/LoginDto";
-import { RefreshTokenRequestSchema } from "../../application/auth/refresh-token/models/RefreshTokenDto";
 
 export function createAuthRoutes(app: Express) {
   const router = Router();
@@ -24,7 +23,7 @@ export function createAuthRoutes(app: Express) {
 
   router.post(
     "/refresh-token",
-    validateRequest(RefreshTokenRequestSchema),
+    // No validation needed - refresh token comes from HTTP-only cookie
     async (req, res) => await RefreshTokenController(req, res),
   );
 
