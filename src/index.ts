@@ -1,6 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import { createAuthRoutes } from "./presentation/routes/auth.routes";
+import { AuthRoutes } from "./presentation/routes/auth.routes";
 import { TodoRoutes } from "./presentation/routes/todo.routes";
 import { ENVIROMENT_VARIABLES } from "./application/shared/infrastructure/EnviromentVariables";
 import { HealthRoutes } from "./presentation/routes/health.routes";
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-createAuthRoutes(app);
+AuthRoutes(app);
 TodoRoutes(app);
 HealthRoutes(app);
 

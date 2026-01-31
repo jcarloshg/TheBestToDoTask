@@ -8,7 +8,7 @@ import { authMiddleware } from "../middlewares/AuthMiddleware";
 import { SignUpRequestSchema } from "../../application/auth/sign-up/models/SignUpDto";
 import { LoginRequestSchema } from "../../application/auth/login/models/LoginDto";
 
-export function createAuthRoutes(app: Express) {
+export function AuthRoutes(app: Express) {
   const router = Router();
 
   router.post(

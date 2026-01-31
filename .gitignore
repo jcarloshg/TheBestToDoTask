@@ -13,6 +13,11 @@ dist/
 .env.local
 .env.*.local
 
+# stress testing python
+__pycache__/
+*.pyc
+.venv/
+
 # IDE
 .vscode/
 .idea/
