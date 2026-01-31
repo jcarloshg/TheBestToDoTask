@@ -16,7 +16,17 @@ export class ToDoRepoPostgreSql implements IToDoRepository {
             throw new Error("Failed to create todo");
         }
 
-        return this.mapToDoModelToToDo(createdToDo);
+        return {
+            id: createdToDo.dataValues.id!,
+            completed: createdToDo.dataValues.completed!,
+            name: createdToDo.dataValues.name,
+            priority: createdToDo.dataValues.priority,
+            userId: createdToDo.dataValues.userId,
+            createdAt: createdToDo.dataValues.createdAt!,
+            updatedAt: createdToDo.dataValues.updatedAt!,
+        }
+
+        // return this.mapToDoModelToToDo(createdToDo);
     }
 
     /**

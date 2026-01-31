@@ -16,7 +16,8 @@ class SequelizeSingleton {
         username: ENVIROMENT_VARIABLES.POSTGRES_USER,
         password: ENVIROMENT_VARIABLES.POSTGRES_PASSWORD,
         database: ENVIROMENT_VARIABLES.POSTGRES_DB,
-        logging: ENVIROMENT_VARIABLES.NODE_ENV === "development" ? console.log : false,
+        // logging: ENVIROMENT_VARIABLES.NODE_ENV === "development" ? console.log : false,
+        logging: false,
         define: {
           timestamps: true,
           underscored: true,
