@@ -1,10 +1,9 @@
-import "dotenv/config";
 import express from "express";
 import cookieParser from "cookie-parser";
-import { createAuthRoutes } from "./presentation/routes/authRoutes";
+import { createAuthRoutes } from "./presentation/routes/auth.routes";
 import { ENVIROMENT_VARIABLES } from "./application/shared/infrastructure/EnviromentVariables";
-import SequelizeSingleton from "./application/shared/sequelize";
 import { HealthRoutes } from "./presentation/routes/health.routes";
+import SequelizeSingleton from "./application/shared/sequelize";
 
 // Create Express app && Middlewares
 const app = express();
