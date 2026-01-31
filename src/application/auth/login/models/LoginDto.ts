@@ -7,6 +7,7 @@ export const LoginRequestSchema = z.object({
 
 export type LoginRequest = z.infer<typeof LoginRequestSchema>;
 
+// Internal response (includes refresh token for processing)
 export const LoginResponseSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
@@ -17,3 +18,14 @@ export const LoginResponseSchema = z.object({
 });
 
 export type LoginResponse = z.infer<typeof LoginResponseSchema>;
+
+// Response sent to client (refresh token is sent via HTTP-only cookie)
+export const LoginClientResponseSchema = z.object({
+  accessToken: z.string(),
+  user: z.object({
+    id: z.string().uuid(),
+    email: z.string().email(),
+  }),
+});
+
+export type LoginClientResponse = z.infer<typeof LoginClientResponseSchema>;

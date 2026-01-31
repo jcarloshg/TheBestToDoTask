@@ -33,11 +33,21 @@ export const LoginController = async (
 
     // process request
     const request: LoginRequest = req.body;
-    const response = await loginUseCase.execute(request);
+    const { refreshToken, ...responseWithoutRefreshToken } = await loginUseCase.execute(request);
 
+    // Set refresh token as HTTP-only cookie (secure way to handle refresh tokens)
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: ENVIROMENT_VARIABLES.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: "/",
+    });
+
+    // Return access token in response body
     res.status(200).json({
       status: "success",
-      data: response,
+      data: responseWithoutRefreshToken,
     });
   } catch (error: unknown) {
     const message =
