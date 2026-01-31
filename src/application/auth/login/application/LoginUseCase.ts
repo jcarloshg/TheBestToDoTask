@@ -52,7 +52,6 @@ export class LoginUseCase {
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
         createdAt: new Date()
       };
-      console.log(`refreshTokenEntity: `, refreshTokenEntity);
 
       await this.refreshTokenRepository.save(refreshTokenEntity);
 
@@ -67,7 +66,7 @@ export class LoginUseCase {
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "An error occurred";
-      console.log(`message: `, message);
+      console.error(`LoginUseCase error: ${message}`);
       throw new Error(`Login failed. Try again later.`);
     }
   }

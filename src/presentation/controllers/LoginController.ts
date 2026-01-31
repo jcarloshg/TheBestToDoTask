@@ -33,10 +33,8 @@ export const LoginController = async (
 
     // process request
     const request: LoginRequest = req.body;
-    const {
-      refreshToken,
-      ...responseWithoutRefreshToken
-    } = await loginUseCase.execute(request);
+    const { refreshToken, ...responseWithoutRefreshToken } =
+      await loginUseCase.execute(request);
 
     // Set refresh token as HTTP-only cookie (secure way to handle refresh tokens)
     res.cookie("refreshToken", refreshToken, {
@@ -56,11 +54,11 @@ export const LoginController = async (
     const message =
       error instanceof Error ? error.message : "An error occurred";
 
-    // console.log(`message: `, message);
+    console.error(`LoginController error: ${message}`);
 
     res.status(401).json({
       status: "error",
-      message,
+      message: "Something went wrong. Try again later.",
     });
   }
 };
