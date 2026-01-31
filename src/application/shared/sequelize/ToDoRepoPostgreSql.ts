@@ -24,7 +24,7 @@ export class ToDoRepoPostgreSql implements IToDoRepository {
             userId: createdToDo.dataValues.userId,
             createdAt: createdToDo.dataValues.createdAt!,
             updatedAt: createdToDo.dataValues.updatedAt!,
-        }
+        };
 
         // return this.mapToDoModelToToDo(createdToDo);
     }
@@ -35,9 +35,19 @@ export class ToDoRepoPostgreSql implements IToDoRepository {
     async findById(id: string): Promise<ToDo | null> {
         const todo = await ToDoModel.findByPk(id);
 
-        if (!todo) return null;
+        if (!todo || !todo.dataValues) return null;
 
-        return this.mapToDoModelToToDo(todo);
+        // return this.mapToDoModelToToDo(todo);
+
+        return {
+            id: todo.dataValues.id!,
+            name: todo.dataValues.name,
+            priority: todo.dataValues.priority,
+            completed: todo.dataValues.completed!,
+            userId: todo.dataValues.userId,
+            createdAt: todo.dataValues.createdAt!,
+            updatedAt: todo.dataValues.updatedAt!,
+        };
     }
 
     /**
@@ -68,11 +78,20 @@ export class ToDoRepoPostgreSql implements IToDoRepository {
 
         const updatedToDo = await ToDoModel.findByPk(id);
 
-        if (!updatedToDo) {
+        if (!updatedToDo || !updatedToDo.dataValues) {
             throw new Error("Todo not found after update");
         }
 
-        return this.mapToDoModelToToDo(updatedToDo);
+        // return this.mapToDoModelToToDo(updatedToDo);
+        return {
+            id: updatedToDo.dataValues.id!,
+            name: updatedToDo.dataValues.name,
+            priority: updatedToDo.dataValues.priority,
+            completed: updatedToDo.dataValues.completed!,
+            userId: updatedToDo.dataValues.userId,
+            createdAt: updatedToDo.dataValues.createdAt!,
+            updatedAt: updatedToDo.dataValues.updatedAt!,
+        }
     }
 
     /**

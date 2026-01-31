@@ -7,14 +7,14 @@ const enumValues: [PriorityEnum.HIGH, PriorityEnum.MEDIUM, PriorityEnum.LOW] = [
   PriorityEnum.LOW,
 ];
 
-export const CreateToDoRequestSchema = z.object({
-  name: z.string().min(1, "Todo name is required").max(255),
+export const UpdateToDoRequestSchema = z.object({
+  name: z.string(),
   priority: z.enum(enumValues),
+  completed: z.boolean(),
 });
+export type UpdateToDoRequest = z.infer<typeof UpdateToDoRequestSchema>;
 
-export type CreateToDoRequest = z.infer<typeof CreateToDoRequestSchema>;
-
-export const CreateToDoResponseSchema = z.object({
+export const UpdateToDoResponseSchema = z.object({
   id: z.string().uuid(),
   name: z.string(),
   priority: z.enum(enumValues),
@@ -24,4 +24,4 @@ export const CreateToDoResponseSchema = z.object({
   updatedAt: z.date(),
 });
 
-export type CreateToDoResponse = z.infer<typeof CreateToDoResponseSchema>;
+export type UpdateToDoResponse = z.infer<typeof UpdateToDoResponseSchema>;
