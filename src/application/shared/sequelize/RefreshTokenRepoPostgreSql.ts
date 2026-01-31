@@ -52,17 +52,17 @@ export class RefreshTokenRepoPostgreSql implements IRefreshTokenRepository {
             where: { tokenHash },
         });
 
-        if (!refreshToken) {
+        if (!refreshToken || !refreshToken.dataValues) {
             return null;
         }
 
         return {
-            id: refreshToken.id.toString(),
-            userId: refreshToken.userId,
+            id: refreshToken.dataValues.id!.toString(),
+            userId: refreshToken.dataValues.userId,
             token, // Return the token that was passed in
-            expiresAt: refreshToken.expiresAt,
-            createdAt: refreshToken.createdAt,
-            revokedAt: refreshToken.revokedAt || null,
+            expiresAt: refreshToken.dataValues.expiresAt!,
+            createdAt: refreshToken.dataValues.createdAt!,
+            revokedAt: refreshToken.dataValues.revokedAt || null,
         };
     }
 

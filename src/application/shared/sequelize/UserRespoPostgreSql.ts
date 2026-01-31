@@ -38,14 +38,14 @@ export class UserRespoPostgreSql implements IUserRepository {
   async findById(id: string): Promise<User | null> {
     const user = await UserModel.findByPk(id);
 
-    if (!user) return null;
+    if (!user || !user.dataValues) return null;
 
     return {
-      id: user.id,
-      email: user.email,
-      passwordHash: user.password,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
+      id: user.dataValues.id,
+      email: user.dataValues.email,
+      passwordHash: user.dataValues.password,
+      createdAt: user.dataValues.createdAt!,
+      updatedAt: user.dataValues.updatedAt!,
     };
   }
 
