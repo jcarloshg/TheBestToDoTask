@@ -26,12 +26,14 @@ export class UserRespoPostgreSql implements IUserRepository {
 
     if (!userFound) return null;
 
+    console.log(`userFound.dataValues: `, userFound.dataValues);
+
     return {
-      id: userFound.id,
-      email: userFound.email,
-      passwordHash: userFound.password,
-      createdAt: userFound.createdAt,
-      updatedAt: userFound.updatedAt,
+      id: userFound.dataValues.id,
+      email: userFound.dataValues.email,
+      passwordHash: userFound.dataValues.password,
+      createdAt: userFound.dataValues.createdAt!,
+      updatedAt: userFound.dataValues.updatedAt!,
     };
   }
 

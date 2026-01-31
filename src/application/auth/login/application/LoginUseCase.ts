@@ -11,11 +11,12 @@ export class LoginUseCase {
     private cryptoService: ICryptoService,
     private tokenService: ITokenService,
     private refreshTokenRepository: IRefreshTokenRepository
-  ) {}
+  ) { }
 
   async execute(request: LoginRequest): Promise<LoginResponse> {
     // Find user by email
     const user = await this.userRepository.findByEmail(request.email);
+
     if (!user) {
       throw new Error('Invalid email or password');
     }

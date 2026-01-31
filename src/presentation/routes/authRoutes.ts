@@ -11,7 +11,7 @@ export function createAuthRoutes(app: Express) {
   const router = Router();
 
   router.post(
-    "/sign-up",
+    "/register",
     validateRequest(SignUpRequestSchema),
     async (req, res) => await SignUpController(req, res),
   );
@@ -28,5 +28,5 @@ export function createAuthRoutes(app: Express) {
     async (req, res) => await RefreshTokenController(req, res),
   );
 
-  app.use("/api/auth", router);
+  app.use("/v1/auth", router);
 }

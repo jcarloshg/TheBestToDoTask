@@ -8,7 +8,7 @@ GET {{baseUrl}}/health
 
 ###
 ### Sign Up - Create a new user
-POST {{baseUrl}}/api/auth/sign-up
+POST {{baseUrl}}/v1/auth/register
 Content-Type: {{contentType}}
 
 {
@@ -18,7 +18,7 @@ Content-Type: {{contentType}}
 
 ###
 ### Sign Up - Invalid email format
-POST {{baseUrl}}/api/auth/sign-up
+POST {{baseUrl}}/v1/auth/register
 Content-Type: {{contentType}}
 
 {
@@ -28,7 +28,7 @@ Content-Type: {{contentType}}
 
 ###
 ### Sign Up - Password too short (less than 8 characters)
-POST {{baseUrl}}/api/auth/sign-up
+POST {{baseUrl}}/v1/auth/register
 Content-Type: {{contentType}}
 
 {
@@ -38,7 +38,7 @@ Content-Type: {{contentType}}
 
 ###
 ### Login - Valid credentials
-POST {{baseUrl}}/api/auth/login
+POST {{baseUrl}}/v1/auth/login
 Content-Type: {{contentType}}
 
 {
@@ -48,7 +48,7 @@ Content-Type: {{contentType}}
 
 ###
 ### Login - Non-existent user
-POST {{baseUrl}}/api/auth/login
+POST {{baseUrl}}/v1/auth/login
 Content-Type: {{contentType}}
 
 {
@@ -58,7 +58,7 @@ Content-Type: {{contentType}}
 
 ###
 ### Login - Wrong password
-POST {{baseUrl}}/api/auth/login
+POST {{baseUrl}}/v1/auth/login
 Content-Type: {{contentType}}
 
 {
@@ -68,7 +68,7 @@ Content-Type: {{contentType}}
 
 ###
 ### Refresh Token - Get new access token
-POST {{baseUrl}}/api/auth/refresh-token
+POST {{baseUrl}}/v1/auth/refresh-token
 Content-Type: {{contentType}}
 
 {
@@ -77,7 +77,7 @@ Content-Type: {{contentType}}
 
 ###
 ### Refresh Token - Invalid refresh token
-POST {{baseUrl}}/api/auth/refresh-token
+POST {{baseUrl}}/v1/auth/refresh-token
 Content-Type: {{contentType}}
 
 {
