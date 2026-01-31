@@ -74,6 +74,7 @@ export class JwtTokenServiceSingleton implements ITokenService {
         token,
         this.refreshTokenSecret,
       ) as TokenPayload;
+      console.log(`decoded: `, decoded);
       return decoded.type === "refresh" ? decoded : null;
     } catch {
       return null;
