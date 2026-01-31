@@ -7,7 +7,7 @@ export enum PriorityEnum {
   HIGH = "high",
 }
 
-interface ToDoAttributes {
+export interface ToDoAttributes {
   id?: string;
   name: string;
   priority: PriorityEnum;

@@ -1,5 +1,6 @@
+import { WhereOptions } from "sequelize";
 import { IToDoRepository, ToDo, ToDoToSave } from "../models/IToDoRepository";
-import ToDoModel from "./models/ToDoModel";
+import ToDoModel, { ToDoAttributes } from "./models/ToDoModel";
 
 export class ToDoRepoPostgreSql implements IToDoRepository {
     /**
@@ -120,6 +121,55 @@ export class ToDoRepoPostgreSql implements IToDoRepository {
         });
 
         return todos.map((todo) => this.mapToDoModelToToDo(todo));
+    }
+
+    /**
+     * Find todos with filters and pagination
+     */
+    async findByUserIdWithFilters(params: {
+        userId: string;
+        priority?: string;
+        page: number;
+        limit: number;
+    }): Promise<{
+        todos: any[];
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    }> {
+        const { userId, priority, page, limit } = params;
+        const offset = (page - 1) * limit;
+
+        // Build where clause
+        const where: WhereOptions<ToDoAttributes> = { userId };
+        if (priority) where.priority = priority;
+
+        const { count, rows } = await ToDoModel.findAndCountAll({
+            where: where,
+            offset,
+            limit,
+            order: [["createdAt", "DESC"]],
+        });
+
+        const todos: ToDo[] = rows.map((todo) => ({
+            id: todo.dataValues.id!,
+            name: todo.dataValues.name,
+            priority: todo.dataValues.priority,
+            completed: todo.dataValues.completed!,
+            userId: todo.dataValues.userId,
+            createdAt: todo.dataValues.createdAt!,
+            updatedAt: todo.dataValues.updatedAt!,
+        }));
+        const totalPages = Math.ceil(count / limit);
+
+        return {
+            todos,
+            total: count,
+            page,
+            limit,
+            totalPages,
+        };
     }
 
     /**

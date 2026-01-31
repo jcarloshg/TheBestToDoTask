@@ -27,4 +27,17 @@ export interface IToDoRepository {
   // not implemented yet
   findByUserId(userId: string): Promise<ToDo[]>;
   findByUserIdAndCompleted(userId: string, completed: boolean): Promise<ToDo[]>;
+  // filters and pagination
+  findByUserIdWithFilters(params: {
+    userId: string;
+    priority?: PriorityEnum;
+    page: number;
+    limit: number;
+  }): Promise<{
+    todos: ToDo[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  }>;
 }

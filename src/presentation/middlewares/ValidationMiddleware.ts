@@ -24,3 +24,27 @@ export function validateRequest(schema: ZodSchema) {
     }
   };
 }
+
+export function validateQuery(schema: ZodSchema) {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    try {
+      const validated = schema.parse(req.query);
+      req.query = validated;
+      next();
+    } catch (error: unknown) {
+      console.log(`error: `, error);
+      if (error instanceof Error) {
+        res.status(400).json({
+          status: 'error',
+          message: 'Validation failed',
+          details: error.message,
+        });
+      } else {
+        res.status(400).json({
+          status: 'error',
+          message: 'Validation failed',
+        });
+      }
+    }
+  };
+}
