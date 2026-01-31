@@ -10,7 +10,6 @@ import { UpdateToDoRequestSchema } from "../../application/todo/update-todo/mode
 export const TodoRoutes = (app: Express) => {
   const router = Router();
 
-  // Create a new todo
   router.post(
     "/create",
     authMiddleware,
@@ -18,7 +17,6 @@ export const TodoRoutes = (app: Express) => {
     async (req, res) => await CreateToDoController(req, res),
   );
 
-  // Update a todo by id
   router.patch(
     "/update/:id",
     authMiddleware,
@@ -26,11 +24,16 @@ export const TodoRoutes = (app: Express) => {
     async (req, res) => await UpdateToDoController(req, res),
   );
 
-  // Get a todo by id
   router.get(
     "/list/:id",
     authMiddleware,
     async (req, res) => await GetToDoByIdController(req, res),
+  );
+
+  router.delete(
+    "/list/:id",
+    authMiddleware,
+    // To be implemented
   );
 
   app.use("/v1/todo", router);
