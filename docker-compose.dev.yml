@@ -51,9 +51,6 @@ services:
       # Mount source code for hot reload
       - ./src:/app/src
       - ./tsconfig.json:/app/tsconfig.json
-      # Mount for testing configuration
-      - ./jest.config.js:/app/jest.config.js
-      - ./tests:/app/tests
       # Exclude node_modules from mount
       - /app/node_modules
     depends_on:
