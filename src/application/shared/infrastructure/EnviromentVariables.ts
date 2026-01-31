@@ -44,6 +44,8 @@ const EnviromentVariables = (): IENVIROMENT_VARIABLES => {
     POSTGRES_HOST: process.env.POSTGRES_HOST ?? "localhost",
   };
 
+  console.log(`envs: `, envs);
+
   return envs;
 };
 

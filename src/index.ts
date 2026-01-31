@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createAuthRoutes } from "./presentation/routes/authRoutes";
 import { ENVIROMENT_VARIABLES } from "./application/shared/infrastructure/EnviromentVariables";
+import SequelizeSingleton from "./application/shared/sequelize";
 
 // Create Express app
 const app = express();
@@ -26,13 +27,12 @@ app.use((_req, res) => {
 });
 
 // Start server
-app.listen(ENVIROMENT_VARIABLES.PORT, () => {
+app.listen(ENVIROMENT_VARIABLES.PORT, async () => {
+
+  // Initialize database connection
+  await SequelizeSingleton.connect();
+
   console.log(
     `✓ Authentication service running on http://localhost:${ENVIROMENT_VARIABLES.PORT}`,
   );
-  console.log(`✓ Available endpoints:`);
-  console.log(`  POST /api/auth/sign-up`);
-  console.log(`  POST /api/auth/login`);
-  console.log(`  POST /api/auth/refresh-token`);
-  console.log(`  GET  /health`);
 });

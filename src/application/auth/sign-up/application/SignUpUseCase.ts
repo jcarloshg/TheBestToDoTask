@@ -8,11 +8,12 @@ export class SignUpUseCase {
   constructor(
     private userRepository: IUserRepository,
     private cryptoService: ICryptoService
-  ) {}
+  ) { }
 
   async execute(request: SignUpRequest): Promise<SignUpResponse> {
     // Check if user already exists
     const existingUser = await this.userRepository.findByEmail(request.email);
+
     if (existingUser) {
       throw new Error('User with this email already exists');
     }

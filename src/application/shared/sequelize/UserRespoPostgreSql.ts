@@ -21,16 +21,17 @@ export class UserRespoPostgreSql implements IUserRepository {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const user = await UserModel.findOne({ where: { email } });
 
-    if (!user) return null;
+    const userFound = await UserModel.findOne({ where: { email } });
+
+    if (!userFound) return null;
 
     return {
-      id: user.id,
-      email: user.email,
-      passwordHash: user.password,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
+      id: userFound.id,
+      email: userFound.email,
+      passwordHash: userFound.password,
+      createdAt: userFound.createdAt,
+      updatedAt: userFound.updatedAt,
     };
   }
 
