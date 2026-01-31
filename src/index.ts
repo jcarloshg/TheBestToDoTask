@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 import { AuthRoutes } from "./presentation/routes/auth.routes";
@@ -7,9 +8,11 @@ import { ENVIROMENT_VARIABLES } from "./application/shared/infrastructure/Enviro
 import { HealthRoutes } from "./presentation/routes/health.routes";
 import SequelizeSingleton from "./application/shared/sequelize";
 import { swaggerSpec } from "./presentation/swagger/swaggerConfig";
+import { corsOptions } from "./application/shared/infrastructure/CORSConfig";
 
 // Create Express app && Middlewares
 const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 

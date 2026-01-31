@@ -9,6 +9,9 @@ export interface IENVIROMENT_VARIABLES {
   // Node Environment
   NODE_ENV: NODE_ENV_VALUE;
 
+  // CORS Configuration
+  ALLOWED_ORIGINS: string;
+
   // JWT Secrets
   ACCESS_TOKEN_SECRET: string;
   REFRESH_TOKEN_SECRET: string;
@@ -29,6 +32,8 @@ const EnviromentVariables = (): IENVIROMENT_VARIABLES => {
     PORT: process.env.PORT ?? "3001",
     // Node Environment
     NODE_ENV: (process.env.NODE_ENV ?? "development") as NODE_ENV_VALUE,
+    // CORS Configuration
+    ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS ?? "",
     // JWT Secrets
     ACCESS_TOKEN_SECRET:
       process.env.ACCESS_TOKEN_SECRET ?? "dev-access-secret-key",
