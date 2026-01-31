@@ -21,15 +21,20 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  // setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   verbose: true,
   testTimeout: 10000,
-  globals: {
-    'ts-jest': {
-      tsconfig: {
-        esModuleInterop: true,
-        allowSyntheticDefaultImports: true,
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          noUnusedLocals: false,
+          noUnusedParameters: false,
+        },
       },
-    },
+    ],
   },
 };
