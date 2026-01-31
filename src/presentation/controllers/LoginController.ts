@@ -4,8 +4,8 @@ import { LoginRequest } from "../../application/auth/login/models/LoginDto";
 import { GetUserRepositoryInstance } from "../../application/shared/models/IUserRepository";
 import { Argon2CryptoService } from "../../application/shared/infrastructure/Argon2CryptoService";
 import { JwtTokenServiceSingleton } from "../../application/shared/infrastructure/JwtTokenService";
-import { InMemoryRefreshTokenRepository } from "../../application/shared/infrastructure/InMemoryRefreshTokenRepository";
 import { ENVIROMENT_VARIABLES } from "../../application/shared/infrastructure/EnviromentVariables";
+import { GetRefreshTokenRepositoryInstance } from "../../application/shared/models/IRefreshTokenRepository";
 
 export const LoginController = async (
   req: Request,
@@ -14,6 +14,7 @@ export const LoginController = async (
   try {
     // init dependencies
     const userRepository = GetUserRepositoryInstance();
+    const refreshTokenRepository = GetRefreshTokenRepositoryInstance();
     const argon2CryptoService = new Argon2CryptoService();
     const tokenService = JwtTokenServiceSingleton.getInstance(
       ENVIROMENT_VARIABLES.ACCESS_TOKEN_SECRET,
@@ -21,7 +22,6 @@ export const LoginController = async (
       ENVIROMENT_VARIABLES.ACCESS_TOKEN_EXPIRY,
       ENVIROMENT_VARIABLES.REFRESH_TOKEN_EXPIRY,
     );
-    const refreshTokenRepository = new InMemoryRefreshTokenRepository();
 
     // init use cases
     const loginUseCase = new LoginUseCase(
@@ -33,7 +33,10 @@ export const LoginController = async (
 
     // process request
     const request: LoginRequest = req.body;
-    const { refreshToken, ...responseWithoutRefreshToken } = await loginUseCase.execute(request);
+    const {
+      refreshToken,
+      ...responseWithoutRefreshToken
+    } = await loginUseCase.execute(request);
 
     // Set refresh token as HTTP-only cookie (secure way to handle refresh tokens)
     res.cookie("refreshToken", refreshToken, {
@@ -52,6 +55,8 @@ export const LoginController = async (
   } catch (error: unknown) {
     const message =
       error instanceof Error ? error.message : "An error occurred";
+
+    // console.log(`message: `, message);
 
     res.status(401).json({
       status: "error",

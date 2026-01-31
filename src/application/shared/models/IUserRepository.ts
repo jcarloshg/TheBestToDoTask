@@ -10,6 +10,11 @@ export interface IUserRepository {
   update(user: User): Promise<User>;
 }
 
+
+// ─────────────────────────────────────
+// Factory Function
+// ─────────────────────────────────────
+
 /**
  * this factory function returns the appropriate user repository implementation
  * based on the current environment (development, production, test).
