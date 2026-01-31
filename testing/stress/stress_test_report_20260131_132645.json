@@ -1,0 +1,18 @@
+{
+  "summary": {
+    "total_requests": 100,
+    "successful": 100,
+    "failed": 0,
+    "success_rate": "100.00%",
+    "total_duration": "2.80s",
+    "requests_per_second": "35.72"
+  },
+  "response_times": {
+    "min": "0.146s",
+    "max": "0.406s",
+    "mean": "0.270s",
+    "median": "0.266s",
+    "stdev": "0.040s"
+  },
+  "errors": {}
+}
