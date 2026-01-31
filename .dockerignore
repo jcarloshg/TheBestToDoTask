@@ -1,0 +1,54 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE/Editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment files (use Docker .env files instead)
+.env
+.env.local
+.env.prod
+
+# Testing
+coverage
+.nyc_output
+jest.config.js
+
+# Build artifacts
+dist
+build
+*.tsbuildinfo
+
+# Docker files (don't include in image)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Documentation
+README.md
+docs
+
+# Database files
+database/*.db
+database/*.sqlite
+
+# Logs
+logs
+*.log
