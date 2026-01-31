@@ -1,0 +1,66 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Dependencies (will be reinstalled in container)
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build artifacts (will be rebuilt in container)
+dist
+
+# Environment files (will be passed at runtime)
+.env
+.env.local
+.env.*.local
+.env.dev
+.env.test
+.env.staging
+.env.prod
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Documentation
+README.md
+CLAUDE.md
+docs
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.circleci
+
+# Docker files (not needed in container)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Development files
+database/
+.claude
+
+# Logs
+logs
+*.log
+
+# Test files
+jest.config.js
+*.test.ts
+*.spec.ts
+coverage

@@ -36,7 +36,18 @@ Thumbs.db
 
 # environment variables
 .env
+.env.local
 .env.dev
 .env.test
 .env.staging
 .env.prod
+
+# Docker environment files (with actual secrets - templates are tracked)
+.env.docker.local
+.env.docker.custom
+.env.docker.prod.local
+
+# Docker volumes and temporary files
+postgres_data/
+docker_volumes/
+.docker/

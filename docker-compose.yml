@@ -1,0 +1,136 @@
+services:
+  # ============================================================================
+  # PostgreSQL Database Service
+  # ============================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: todo_postgres_db
+
+    # Environment variables for PostgreSQL
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-todo_db}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin123456}
+      POSTGRES_INITDB_ARGS: "-c timezone=UTC"
+
+    # Port mapping (only expose internally to app, use random external port if needed)
+    ports:
+      - "5432:5432"
+
+    # Volume for data persistence
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Optional: Mount SQL initialization scripts
+      # - ./database/migrations:/docker-entrypoint-initdb.d
+
+    # Health check to ensure database is ready before app starts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    # Network
+    networks:
+      - todo_network
+
+    # Restart policy
+    restart: unless-stopped
+
+    # Security: Run with minimal privileges
+    user: "postgres"
+
+  # ============================================================================
+  # Node.js Application Service
+  # ============================================================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Use BuildKit for better performance and caching
+      args:
+        NODE_ENV: production
+
+    container_name: todo_app
+
+    # Depends on database being healthy
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    # Environment variables for the application
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${PORT:-3001}
+
+      # Database Configuration
+      POSTGRES_HOST: postgres # Service name (Docker's internal DNS)
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-todo_db}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin123456}
+
+      # JWT Configuration
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET:-dev-access-secret-key}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET:-dev-refresh-secret-key}
+      ACCESS_TOKEN_EXPIRY: ${ACCESS_TOKEN_EXPIRY:-24h}
+      REFRESH_TOKEN_EXPIRY: ${REFRESH_TOKEN_EXPIRY:-7d}
+
+    # Port mapping
+    ports:
+      - "${PORT:-3001}:3001"
+
+    # Network
+    networks:
+      - todo_network
+
+    # Health check
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3001/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Restart policy
+    restart: unless-stopped
+
+    # # Resource limits (optional but recommended)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: "1"
+    #       memory: 512M
+    #     reservations:
+    #       cpus: "0.5"
+    #       memory: 256M
+
+    # # Logs configuration
+    # logging:
+    #   driver: "json-file"
+    #   options:
+    #     max-size: "10m"
+    #     max-file: "3"
+
+# ============================================================================
+# Networks
+# ============================================================================
+networks:
+  todo_network:
+    driver: bridge
+
+# ============================================================================
+# Volumes
+# ============================================================================
+volumes:
+  postgres_data:
+    driver: local
