@@ -1,9 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
 import { IUserRepository } from "../../../shared/models/IUserRepository";
 import { ITokenService } from "../../../shared/models/ITokenService";
 import {
   IRefreshTokenRepository,
-  RefreshTokenEntity,
   RefreshTokenToSaveEntity,
 } from "../../../shared/models/IRefreshTokenRepository";
 import {
