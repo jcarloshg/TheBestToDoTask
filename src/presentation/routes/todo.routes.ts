@@ -2,6 +2,7 @@ import { Express, Router } from "express";
 import { CreateToDoController } from "../controllers/CreateToDoController";
 import { UpdateToDoController } from "../controllers/UpdateToDoController";
 import { GetToDoByIdController } from "../controllers/GetToDoByIdController";
+import { DeleteToDoByIdController } from "../controllers/DeleteToDoByIdController";
 import { validateRequest } from "../middlewares/ValidationMiddleware";
 import { authMiddleware } from "../middlewares/AuthMiddleware";
 import { CreateToDoRequestSchema } from "../../application/todo/create-todo/models/CreateToDoDto";
@@ -18,7 +19,7 @@ export const TodoRoutes = (app: Express) => {
   );
 
   router.patch(
-    "/update/:id",
+    "/list/:id",
     authMiddleware,
     validateRequest(UpdateToDoRequestSchema),
     async (req, res) => await UpdateToDoController(req, res),
@@ -33,7 +34,7 @@ export const TodoRoutes = (app: Express) => {
   router.delete(
     "/list/:id",
     authMiddleware,
-    // To be implemented
+    async (req, res) => await DeleteToDoByIdController(req, res),
   );
 
   app.use("/v1/todo", router);
