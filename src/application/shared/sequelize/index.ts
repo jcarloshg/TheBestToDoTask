@@ -1,5 +1,4 @@
 import { Sequelize } from "sequelize";
-import { sequelizeConfig } from "./config";
 import { ENVIROMENT_VARIABLES } from "../infrastructure/EnviromentVariables";
 
 class SequelizeSingleton {
