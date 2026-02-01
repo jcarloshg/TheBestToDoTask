@@ -196,6 +196,8 @@ indexes:
 
 The API implements **JWT (JSON Web Token)** based authentication with secure password hashing using **Argon2**.
 
+[auth-video](https://github.com/user-attachments/assets/e5f1d0df-739c-4a89-9382-ca257159628c)
+
 ### Authentication Flow
 
 ```
