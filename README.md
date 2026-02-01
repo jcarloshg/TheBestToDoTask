@@ -118,6 +118,8 @@ sudo docker compose --env-file .env -f docker-compose.dev.yml up
 
 This project uses **PostgreSQL** (v16+) as the relational database, managed through **Sequelize ORM**.
 
+[Video about DB](https://github.com/user-attachments/assets/b1d76169-83fc-48e3-9862-0e6c94814356)
+
 ### Database Models
 
 #### 1. **Users Table**
