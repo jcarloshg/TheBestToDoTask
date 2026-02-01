@@ -89,7 +89,7 @@ sudo docker compose -f docker-compose.dev.yml down -v
 sudo docker compose -f docker-compose.dev.yml build
 
 # Run using .env.docker configuration file
-sudo docker compose --env-file .env.docker -f docker-compose.dev.yml up
+sudo docker compose --env-file .env -f docker-compose.dev.yml up
 ```
 
 ## 🛠 Tech Stack
