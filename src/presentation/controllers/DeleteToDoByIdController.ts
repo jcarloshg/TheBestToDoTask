@@ -19,7 +19,7 @@ export const DeleteToDoByIdController = async (
       return;
     }
 
-    if (!todoId) {
+    if (!todoId || todoId.trim() === "") {
       res.status(400).json({
         status: "error",
         message: "Todo ID is required",
