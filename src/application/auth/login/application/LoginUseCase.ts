@@ -51,7 +51,7 @@ export class LoginUseCase {
         userId: user.id,
         token: refreshToken,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-        createdAt: new Date(),
+        createdAt: new Date(createAt),
       };
 
       await this.refreshTokenRepository.save(refreshTokenEntity);
