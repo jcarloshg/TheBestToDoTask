@@ -32,15 +32,18 @@ export class LoginUseCase {
         throw new Error("Invalid email or password");
       }
 
+      const createAt = (new Date()).toISOString();
       // Generate tokens
       const accessToken = this.tokenService.generateAccessToken({
         userId: user.id,
         email: user.email,
+        createAt: createAt,
       });
 
       const refreshToken = this.tokenService.generateRefreshToken({
         userId: user.id,
         email: user.email,
+        createAt: createAt,
       });
 
       // Store refresh token in database
@@ -48,7 +51,7 @@ export class LoginUseCase {
         userId: user.id,
         token: refreshToken,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-        createdAt: new Date()
+        createdAt: new Date(),
       };
 
       await this.refreshTokenRepository.save(refreshTokenEntity);
@@ -62,10 +65,9 @@ export class LoginUseCase {
         },
       };
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "An error occurred";
+      const message = error instanceof Error ? error.message : "An error occurred";
       console.error(`LoginUseCase error: ${message}`);
-      throw new Error(`Login failed. Try again later.`);
+      throw new Error(message);
     }
   }
 }

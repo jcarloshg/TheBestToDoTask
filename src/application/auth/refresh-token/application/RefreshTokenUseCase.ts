@@ -51,15 +51,18 @@ export class RefreshTokenUseCase {
     // Revoke old refresh token (token rotation)
     await this.refreshTokenRepository.revokeByToken(request.refreshToken);
 
+    const createAt = (new Date()).toISOString();
     // Generate new token pair
     const newAccessToken = this.tokenService.generateAccessToken({
       userId: user.id,
       email: user.email,
+      createAt: createAt,
     });
 
     const newRefreshToken = this.tokenService.generateRefreshToken({
       userId: user.id,
       email: user.email,
+      createAt: createAt,
     });
 
     // Store new refresh token

@@ -51,10 +51,19 @@ export const LoginController = async (
       data: responseWithoutRefreshToken,
     });
   } catch (error: unknown) {
-    const message =
-      error instanceof Error ? error.message : "An error occurred";
+    const message = error instanceof Error
+      ? error.message
+      : "An error occurred";
 
     console.error(`LoginController error: ${message}`);
+
+    if (message === "Invalid email or password") {
+      res.status(401).json({
+        status: "error",
+        message: message,
+      });
+      return;
+    }
 
     res.status(401).json({
       status: "error",
