@@ -1,18 +1,11 @@
 # 📝 The Best To Do Task - ToDo API
 
-![Node.js](https://img.shields.io/badge/Node.js-v20+-green)
-![Express](https://img.shields.io/badge/Express-v4.18+-blue)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v16+-blue)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-![Docker](https://img.shields.io/badge/Docker-Supported-2496ED)
-
----
-
 ## 📋 Overview
 
-**The Best To Do Task** is a production-ready ToDo API built with Node.js, Express, and PostgreSQL. It provides secure user authentication using JWT tokens and complete Todo management with CRUD operations. The API implements Vertical Slice Architecture for maintainability and follows clean architecture principles with comprehensive API documentation via Swagger/OpenAPI. Perfect for learning production-grade backend development or as a foundation for task management applications.
-
----
+- **The Best To Do Task** is a production-ready ToDo API built with Node.js, Express, and PostgreSQL.
+- It provides secure user authentication using JWT tokens and complete Todo management with CRUD operations.
+- The API implements Vertical Slice Architecture for maintainability and follows clean architecture principles with comprehensive API documentation via Swagger/OpenAPI.
+- Perfect for practice production-grade backend development or as a foundation for task management applications.
 
 ## 🚀 Quickstart
 
@@ -63,7 +56,9 @@ npm run build
 npm start
 ```
 
-### Using the Setup Script
+### Using Docker
+
+#### Option 1: Automated Setup Script (Recommended)
 
 The project includes a `set-up.sh` script that automates Docker setup:
 
@@ -82,29 +77,20 @@ chmod +x set-up.sh
 # ✓ Run database migrations automatically
 ```
 
-**What `set-up.sh` does:**
+#### Option 2: Manual Docker Setup
 
-- Validates Docker and Docker Compose are installed
-- Checks for `.env.docker` file with required configurations
-- Removes existing containers and volumes for a clean start
-- Builds Docker images from Dockerfiles
-- Starts services in the correct order (database first, then app)
-- Runs SQL migration scripts automatically during startup
-- Provides colored output with status indicators
-
-### Verification
-
-Once running, verify the API is working:
+If you prefer manual control or the script doesn't work on your system:
 
 ```bash
-# Health check
-curl http://localhost:3001/health
+# Drop existing containers & volumes (clean slate)
+sudo docker compose -f docker-compose.dev.yml down -v
 
-# Access Swagger documentation
-open http://localhost:3001/api-docs
+# Build images from Dockerfiles
+sudo docker compose -f docker-compose.dev.yml build
+
+# Run using .env.docker configuration file
+sudo docker compose --env-file .env.docker -f docker-compose.dev.yml up
 ```
-
----
 
 ## 🛠 Tech Stack
 
@@ -129,19 +115,6 @@ open http://localhost:3001/api-docs
 ### Database Type
 
 This project uses **PostgreSQL** (v16+) as the relational database, managed through **Sequelize ORM**.
-
-### Database Setup
-
-The database is initialized through migration scripts located in `/database/migrations/`. These are automatically executed when:
-
-1. **Using Docker Compose**: Migrations run on container startup
-2. **Running Locally**: Execute migrations manually:
-
-```bash
-# Migrations are auto-run by Sequelize when the app starts
-# To run migrations manually (if needed):
-npm run migrate
-```
 
 ### Database Models
 
@@ -394,21 +367,11 @@ Note: `POSTGRES_HOST=postgres` (the service name in docker-compose)
 
 ## 📖 API Documentation (Swagger)
 
-### Accessing Swagger UI
-
 Once the API is running, access the interactive API documentation:
 
 ```
 http://localhost:3001/api-docs
 ```
-
-### Features
-
-- **Interactive Testing**: Test endpoints directly from the browser
-- **Request/Response Examples**: See example requests and responses
-- **Schema Validation**: Understand required fields and constraints
-- **Security Documentation**: Bearer token authentication explained
-- **Status Codes**: All possible HTTP responses documented
 
 ### Swagger Highlights
 
