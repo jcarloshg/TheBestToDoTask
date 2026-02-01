@@ -21,7 +21,7 @@ export type ToDoToUpdate = Partial<Pick<ToDo, "name" | "priority" | "completed">
 export interface IToDoRepository {
   // already exists
   create(toDo: ToDoToSave): Promise<ToDo>;
-  update(id: string, toDo: Partial<ToDoToUpdate>): Promise<ToDo>;
+  update(id: string, toDo: ToDoToUpdate): Promise<ToDo>;
   findById(id: string): Promise<ToDo | null>;
   delete(id: string): Promise<void>;
   // not implemented yet

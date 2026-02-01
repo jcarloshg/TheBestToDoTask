@@ -1,5 +1,5 @@
 import { WhereOptions } from "sequelize";
-import { IToDoRepository, ToDo, ToDoToSave } from "../models/IToDoRepository";
+import { IToDoRepository, ToDo, ToDoToSave, ToDoToUpdate } from "../models/IToDoRepository";
 import ToDoModel, { ToDoAttributes } from "./models/ToDoModel";
 
 export class ToDoRepoPostgreSql implements IToDoRepository {
@@ -66,11 +66,12 @@ export class ToDoRepoPostgreSql implements IToDoRepository {
     /**
      * Update a todo
      */
-    async update(id: string, toDo: Partial<ToDoToSave>): Promise<ToDo> {
+    async update(id: string, toDo: ToDoToUpdate): Promise<ToDo> {
         await ToDoModel.update(
             {
                 ...(toDo.name && { name: toDo.name }),
                 ...(toDo.priority && { priority: toDo.priority }),
+                ...(toDo.completed !== undefined && { completed: toDo.completed }),
             },
             {
                 where: { id },

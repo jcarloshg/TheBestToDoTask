@@ -8,9 +8,9 @@ const enumValues: [PriorityEnum.HIGH, PriorityEnum.MEDIUM, PriorityEnum.LOW] = [
 ];
 
 export const UpdateToDoRequestSchema = z.object({
-  name: z.string(),
-  priority: z.enum(enumValues),
-  completed: z.boolean(),
+  name: z.string().min(1, "Must be major than 1").optional(),
+  priority: z.enum(enumValues).optional(),
+  completed: z.boolean().optional(),
 });
 export type UpdateToDoRequest = z.infer<typeof UpdateToDoRequestSchema>;
 
