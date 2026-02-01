@@ -8,7 +8,6 @@ export function validateRequest(schema: ZodSchema) {
       req.body = validated;
       next();
     } catch (error: unknown) {
-      console.log(`error: `, error);
       if (error instanceof Error) {
         res.status(400).json({
           status: 'error',
@@ -32,7 +31,6 @@ export function validateQuery(schema: ZodSchema) {
       req.query = validated;
       next();
     } catch (error: unknown) {
-      console.log(`error: `, error);
       if (error instanceof Error) {
         res.status(400).json({
           status: 'error',
