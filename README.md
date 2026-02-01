@@ -18,6 +18,8 @@
 
 ### Installation
 
+[instalation](https://github.com/user-attachments/assets/0de2dddd-9974-407d-8a42-fb4e95885baf)
+
 #### Windows
 
 ```bash
