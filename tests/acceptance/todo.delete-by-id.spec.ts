@@ -138,9 +138,9 @@ const makeDeleteTodoRequest = async (
             headers["Authorization"] = `Bearer ${accessToken}`;
         }
 
-        const endpoint = todoId ? `${DELETE_TODO_ENDPOINT}/${todoId}` : DELETE_TODO_ENDPOINT;
-
-        console.log(`endpoint: `, endpoint);
+        const endpoint = todoId
+            ? `${DELETE_TODO_ENDPOINT}/${todoId}`
+            : DELETE_TODO_ENDPOINT;
 
         const response = await fetch(endpoint, {
             method: "DELETE",
@@ -150,7 +150,6 @@ const makeDeleteTodoRequest = async (
         let parsedBody: any;
         try {
             parsedBody = await response.json();
-            console.log(`parsedBody: `, parsedBody);
         } catch {
             parsedBody = null;
         }
@@ -197,8 +196,6 @@ describe("DELETE /v1/todo/delete-by-id - Acceptance Tests", () => {
                 "Todo to be deleted",
                 PriorityEnum.HIGH,
             );
-
-            console.log(`todoId: `, todoId);
 
             // Delete the todo
             const response = await makeDeleteTodoRequest(
@@ -351,10 +348,7 @@ describe("DELETE /v1/todo/delete-by-id - Acceptance Tests", () => {
             await registerTestUser(testEmail, testPassword);
             const loginResult = await loginTestUser(testEmail, testPassword);
 
-            const response = await makeDeleteTodoRequest(
-                loginResult.accessToken,
-                "",
-            );
+            const response = await makeDeleteTodoRequest(loginResult.accessToken, "");
 
             // the path/resource is not exist
             expect(response.status).toBe(404);
@@ -609,7 +603,8 @@ describe("DELETE /v1/todo/delete-by-id - Acceptance Tests", () => {
             await registerTestUser(testEmail, testPassword);
             const loginResult = await loginTestUser(testEmail, testPassword);
 
-            const uppercaseUUID = "550E8400-E29B-41D4-A716-446655440000".toUpperCase();
+            const uppercaseUUID =
+                "550E8400-E29B-41D4-A716-446655440000".toUpperCase();
             const response = await makeDeleteTodoRequest(
                 loginResult.accessToken,
                 uppercaseUUID,

@@ -206,8 +206,6 @@ describe("PATCH /v1/todo/update - Acceptance Tests", () => {
                 { name: newName },
             );
 
-            console.log(`response: `, response);
-
             expect(response.status).toBe(200);
             expect(response.body).toHaveProperty("status", "success");
             expect(response.body).toHaveProperty("data");
@@ -1136,7 +1134,6 @@ describe("PATCH /v1/todo/update - Acceptance Tests", () => {
                 todoId,
                 { completed: true },
             );
-            console.log(`response3: `, response3);
             expect(response3.status).toBe(200);
             expect(response3.body.data.name).toBe("First update");
             expect(response3.body.data.priority).toBe(PriorityEnum.HIGH);

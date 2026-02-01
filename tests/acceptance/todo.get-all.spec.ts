@@ -332,8 +332,6 @@ describe("GET /v1/todo/list - Acceptance Tests", () => {
 
             const response = await makeGetTodosRequest(loginResult.accessToken);
 
-            console.log(`response: `, response);
-
             expect(response.status).toBe(200);
             expect(response.body.data.todos.length).toBe(3);
 
