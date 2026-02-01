@@ -498,6 +498,8 @@ The Docker setup includes:
 
 This project follows **Vertical Slice Architecture** combined with **Clean Architecture** principles for optimal maintainability and testability.
 
+[Vertical Slice Architecture](https://github.com/user-attachments/assets/12515450-e9a6-4baf-89f9-71392f92331d)
+
 ### Architecture Layers
 
 ```
@@ -619,6 +621,8 @@ npm run lint          # TypeScript type checking
 ### Acceptance Tests
 
 Comprehensive integration tests located in `/tests/acceptance/`:
+
+[video tesing](https://github.com/user-attachments/assets/6d2722fc-eddf-41dc-b076-002031e23626)
 
 ```bash
 npm test
