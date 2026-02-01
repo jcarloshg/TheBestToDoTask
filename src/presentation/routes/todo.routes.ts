@@ -39,8 +39,8 @@ export const TodoRoutes = (app: Express) => {
    *                 example: Complete project
    *               priority:
    *                 type: string
-   *                 enum: [LOW, MEDIUM, HIGH]
-   *                 example: HIGH
+   *                 enum: [low, medium, high]
+   *                 example: high
    *     responses:
    *       201:
    *         description: Todo created successfully
@@ -88,7 +88,7 @@ export const TodoRoutes = (app: Express) => {
    *         name: priority
    *         schema:
    *           type: string
-   *           enum: [LOW, MEDIUM, HIGH]
+   *           enum: [low, medium, high]
    *         description: Filter todos by priority
    *       - in: query
    *         name: page
@@ -217,7 +217,7 @@ export const TodoRoutes = (app: Express) => {
    *                 maxLength: 255
    *               priority:
    *                 type: string
-   *                 enum: [LOW, MEDIUM, HIGH]
+   *                 enum: [low, medium, high]
    *               completed:
    *                 type: boolean
    *     responses:
