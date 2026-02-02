@@ -47,36 +47,47 @@
      - 7.2.1 [Create Todo](#create-todo)
      - 7.2.2 [Get All Todos](#get-all-todos-with-filtering)
      - 7.2.3 [Update Todo](#update-todo)
-8. [Docker](#-docker)
-   - 8.1 [Using Docker Compose](#using-docker-compose)
-     - 8.1.1 [Quick Start](#quick-start)
-     - 8.1.2 [Services](#services)
-     - 8.1.3 [Docker Features](#docker-features)
-9. [Architecture](#-architecture)
-   - 9.1 [Architecture Layers](#architecture-layers)
-   - 9.2 [Project Structure](#project-structure)
-   - 9.3 [Layer Responsibilities](#layer-responsibilities)
-     - 9.3.1 [Presentation Layer](#presentation-layer-srcpresentation)
-     - 9.3.2 [Application Layer](#application-layer-srcapplication)
-     - 9.3.3 [Infrastructure Layer](#infrastructure-layer-srcapplicationshared)
-   - 9.4 [Benefits of Architecture](#benefits-of-this-architecture)
-10. [Available Scripts](#-available-scripts)
-11. [Testing](#-testing)
-    - 11.1 [Acceptance Tests](#acceptance-tests)
-    - 11.2 [Test Coverage](#test-coverage)
-    - 11.3 [Running Tests](#running-tests)
-12. [Performance & Optimization](#-performance--optimization)
-    - 12.1 [Database Optimizations](#database-optimizations)
-    - 12.2 [API Optimizations](#api-optimizations)
-    - 12.3 [Response Compression](#response-compression)
-13. [Security Best Practices](#-security-best-practices)
-14. [Checklist for Production](#-checklist-for-production)
-15. [Troubleshooting](#-troubleshooting)
-    - 15.1 [Database Connection Issues](#database-connection-issues)
-    - 15.2 [Port Already in Use](#port-already-in-use)
-    - 15.3 [Swagger UI Not Loading](#swagger-ui-not-loading)
-    - 15.4 [Tests Failing](#tests-failing)
-16. [License](#-license)
+8. [Todo Management](#-todo-management)
+   - 8.1 [Todo Endpoints](#todo-endpoints)
+   - 8.2 [Todo Operations](#todo-operations)
+     - 8.2.1 [Create Todo](#1-create-todo)
+     - 8.2.2 [Get All Todos](#2-get-all-todos)
+     - 8.2.3 [Update Todo](#3-update-todo)
+     - 8.2.4 [Delete Todo](#4-delete-todo)
+   - 8.3 [Todo Data Structure](#todo-data-structure)
+   - 8.4 [Priority Levels](#priority-levels)
+   - 8.5 [Error Responses](#error-responses)
+   - 8.6 [Todo Features](#todo-management-features)
+9. [Docker](#-docker)
+   - 9.1 [Using Docker Compose](#using-docker-compose)
+     - 9.1.1 [Quick Start](#quick-start)
+     - 9.1.2 [Services](#services)
+     - 9.1.3 [Docker Features](#docker-features)
+10. [Architecture](#-architecture)
+   - 10.1 [Architecture Layers](#architecture-layers)
+   - 10.2 [Project Structure](#project-structure)
+   - 10.3 [Layer Responsibilities](#layer-responsibilities)
+     - 10.3.1 [Presentation Layer](#presentation-layer-srcpresentation)
+     - 10.3.2 [Application Layer](#application-layer-srcapplication)
+     - 10.3.3 [Infrastructure Layer](#infrastructure-layer-srcapplicationshared)
+   - 10.4 [Benefits of Architecture](#benefits-of-this-architecture)
+11. [Available Scripts](#-available-scripts)
+12. [Testing](#-testing)
+   - 12.1 [Acceptance Tests](#acceptance-tests)
+   - 12.2 [Test Coverage](#test-coverage)
+   - 12.3 [Running Tests](#running-tests)
+13. [Performance & Optimization](#-performance--optimization)
+   - 13.1 [Database Optimizations](#database-optimizations)
+   - 13.2 [API Optimizations](#api-optimizations)
+   - 13.3 [Response Compression](#response-compression)
+14. [Security Best Practices](#-security-best-practices)
+15. [Checklist for Production](#-checklist-for-production)
+16. [Troubleshooting](#-troubleshooting)
+   - 16.1 [Database Connection Issues](#database-connection-issues)
+   - 16.2 [Port Already in Use](#port-already-in-use)
+   - 16.3 [Swagger UI Not Loading](#swagger-ui-not-loading)
+   - 16.4 [Tests Failing](#tests-failing)
+17. [License](#-license)
 
 ---
 
@@ -92,9 +103,9 @@
 ### Installation
 
 > .
-> 
+>
 > COPY THE `.env` FILE TO THE PROJECT ROOT
-> 
+>
 > .
 
 [instalation](https://github.com/user-attachments/assets/0de2dddd-9974-407d-8a42-fb4e95885baf)
@@ -522,6 +533,283 @@ curl -X PATCH http://localhost:3001/v1/todo/list/550e8400-e29b-41d4-a716-4466554
     "priority": "medium"
   }'
 ```
+
+---
+
+## 📝 Todo Management
+
+The API provides complete CRUD (Create, Read, Update, Delete) operations for managing todos with comprehensive features.
+
+[Video about Todo Management](https://github.com/user-attachments/assets/6d2722fc-eddf-41dc-b076-002031e23626)
+
+### Todo Endpoints
+
+| Endpoint             | Method | Description        | Auth Required |
+| -------------------- | ------ | ------------------ | ------------- |
+| `/v1/todo/create`    | POST   | Create new todo    | ✅ Yes        |
+| `/v1/todo/list`      | GET    | Retrieve all todos | ✅ Yes        |
+| `/v1/todo/list/{id}` | PATCH  | Update todo by ID  | ✅ Yes        |
+| `/v1/todo/list/{id}` | DELETE | Delete todo by ID  | ✅ Yes        |
+
+### Todo Operations
+
+#### 1. Create Todo
+
+Create a new todo item with name and priority level.
+
+**Request:**
+
+```bash
+POST /v1/todo/create
+Authorization: Bearer YOUR_TOKEN
+Content-Type: application/json
+
+{
+  "name": "Complete project documentation",
+  "priority": "high"
+}
+```
+
+**Response (201 Created):**
+
+```json
+{
+  "status": "success",
+  "data": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "name": "Complete project documentation",
+    "priority": "high",
+    "completed": false,
+    "userId": "550e8400-e29b-41d4-a716-446655440001",
+    "createdAt": "2026-02-01T10:30:00.000Z",
+    "updatedAt": "2026-02-01T10:30:00.000Z"
+  }
+}
+```
+
+**Validation Rules:**
+
+- **name**: Required, 1-255 characters
+- **priority**: Required, must be `low`, `medium`, or `high`
+- **completed**: Optional, defaults to `false`
+
+#### 2. Get All Todos
+
+Retrieve all todos for the authenticated user with optional filtering and pagination.
+
+**Request:**
+
+```bash
+GET /v1/todo/list?priority=high&page=1&limit=10
+Authorization: Bearer YOUR_TOKEN
+Content-Type: application/json
+```
+
+**Query Parameters:**
+
+- **priority** (optional): Filter by priority (`low`, `medium`, `high`)
+- **page** (optional): Page number, starts at 1 (default: 1)
+- **limit** (optional): Items per page, 1-100 (default: varies)
+
+**Response (200 OK):**
+
+```json
+{
+  "status": "success",
+  "data": {
+    "todos": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "name": "Complete project documentation",
+        "priority": "high",
+        "completed": false,
+        "userId": "550e8400-e29b-41d4-a716-446655440001",
+        "createdAt": "2026-02-01T10:30:00.000Z",
+        "updatedAt": "2026-02-01T10:30:00.000Z"
+      }
+    ],
+    "total": 1,
+    "page": 1,
+    "limit": 10,
+    "totalPages": 1
+  }
+}
+```
+
+**Features:**
+
+- Pagination support for large datasets
+- Priority-based filtering
+- User-specific data isolation (only see own todos)
+- Sorted and paginated results
+
+#### 3. Update Todo
+
+Update an existing todo's name, priority, or completion status.
+
+**Request:**
+
+```bash
+PATCH /v1/todo/list/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer YOUR_TOKEN
+Content-Type: application/json
+
+{
+  "name": "Updated task",
+  "priority": "medium",
+  "completed": true
+}
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "status": "success",
+  "data": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "name": "Updated task",
+    "priority": "medium",
+    "completed": true,
+    "userId": "550e8400-e29b-41d4-a716-446655440001",
+    "createdAt": "2026-02-01T10:30:00.000Z",
+    "updatedAt": "2026-02-01T10:35:00.000Z"
+  }
+}
+```
+
+**Update Options:**
+
+- **name** (optional): Update todo name (1-255 characters)
+- **priority** (optional): Change priority level
+- **completed** (optional): Mark as complete/incomplete
+
+**Notes:**
+
+- All fields are optional (partial updates supported)
+- `createdAt` remains unchanged
+- `updatedAt` is automatically updated
+- Only owner can update their todos
+
+#### 4. Delete Todo
+
+Permanently remove a todo from the system.
+
+**Request:**
+
+```bash
+DELETE /v1/todo/list/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer YOUR_TOKEN
+Content-Type: application/json
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "status": "success",
+  "data": {
+    "message": "Todo deleted successfully"
+  }
+}
+```
+
+**Notes:**
+
+- Deletion is permanent and cannot be undone
+- Only owner can delete their todos
+- Attempting to delete non-existent todo returns 404
+
+### Todo Data Structure
+
+```typescript
+interface Todo {
+  id: string; // UUID primary key
+  name: string; // 1-255 characters
+  priority: "low" | "medium" | "high"; // Priority level
+  completed: boolean; // Completion status
+  userId: string; // Owner of the todo
+  createdAt: string; // ISO 8601 timestamp
+  updatedAt: string; // ISO 8601 timestamp
+}
+```
+
+### Priority Levels
+
+| Priority   | Description                                |
+| ---------- | ------------------------------------------ |
+| **low**    | Less urgent, can be done later             |
+| **medium** | Normal priority, should be done soon       |
+| **high**   | Urgent, should be done as soon as possible |
+
+### Error Responses
+
+#### 400 Bad Request
+
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": {
+    "name": "Name must be between 1 and 255 characters",
+    "priority": "Priority must be low, medium, or high"
+  }
+}
+```
+
+#### 401 Unauthorized
+
+```json
+{
+  "status": "error",
+  "message": "No authentication token provided"
+}
+```
+
+#### 404 Not Found
+
+```json
+{
+  "status": "error",
+  "message": "Todo not found or you don't have permission to access it"
+}
+```
+
+### Todo Management Features
+
+✅ **Full CRUD Operations**
+
+- Create, Read, Update, Delete todos
+- Atomic operations with transaction support
+
+✅ **Data Validation**
+
+- Name length constraints (1-255 characters)
+- Priority enum validation
+- UUID format validation for IDs
+- Prevents XSS via HTML escaping
+
+✅ **User Isolation**
+
+- Users can only see and modify their own todos
+- Prevents cross-user data access
+
+✅ **Filtering & Pagination**
+
+- Filter by priority level
+- Paginate through large todo lists
+- Customizable page size
+
+✅ **Timestamps**
+
+- Automatic `createdAt` tracking
+- Automatic `updatedAt` on modifications
+- ISO 8601 format for consistency
+
+✅ **Flexible Updates**
+
+- Partial updates supported (only include fields to update)
+- No requirement to send entire object
 
 ---
 
