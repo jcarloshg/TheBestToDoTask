@@ -597,6 +597,8 @@ Content-Type: application/json
 
 Retrieve all todos for the authenticated user with optional filtering and pagination.
 
+[List TODOs](https://github.com/user-attachments/assets/d4786236-2a8d-49ad-aeca-a4ddd6f6a319)
+
 **Request:**
 
 ```bash
