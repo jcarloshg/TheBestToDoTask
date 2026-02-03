@@ -699,6 +699,8 @@ Content-Type: application/json
 
 Permanently remove a todo from the system.
 
+[Video to delete a TODO](https://github.com/user-attachments/assets/811f494f-70b3-456c-976a-2c747af34303)
+
 **Request:**
 
 ```bash
