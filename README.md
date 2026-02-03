@@ -540,8 +540,6 @@ curl -X PATCH http://localhost:3001/v1/todo/list/550e8400-e29b-41d4-a716-4466554
 
 The API provides complete CRUD (Create, Read, Update, Delete) operations for managing todos with comprehensive features.
 
-[Video about Todo Management](https://github.com/user-attachments/assets/6d2722fc-eddf-41dc-b076-002031e23626)
-
 ### Todo Endpoints
 
 | Endpoint             | Method | Description        | Auth Required |
@@ -556,6 +554,8 @@ The API provides complete CRUD (Create, Read, Update, Delete) operations for man
 #### 1. Create Todo
 
 Create a new todo item with name and priority level.
+
+[Video to create a TODO](https://github.com/user-attachments/assets/3afe67a9-0050-4eae-98db-c59d491ce728)
 
 **Request:**
 
